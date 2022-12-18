@@ -1,22 +1,29 @@
 # esphome-solartemp
 I have 3 heatpipe solar panel each with 30 tubes.
+
 They are connected in series - but as the sun moves over the sky, some of them may get into the shadow on the late afternoon.
+
 As the controller temp-sensor is only mounted on the last - it sometimes results in that the pump stops - and will not start again even if the two others still has sun on them and gets really hot.
+
 To improve this - I have now put PT100 sensors in each of the 3 modules, and hooked them up to a ESP 8266 board.
 
-The ESP is programmed with [ESPhome](https://esphome.io/), where it makes the data available on the built in web-interface, Exposing to Prometheus as well as bublishing the metrics to a MQTT but - that I then use to feed data the Solar controller module.
+The ESP is programmed with [ESPhome](https://esphome.io/), where it makes the data available on the built in web-interface, Exposing to Prometheus as well as publishing the metrics to a MQTT but - that I then use to feed data the Solar controller module.
+
 I did not want a fully wired solution as that can be sensitive to lightning, so just feeding low voltage power to the waterproof box I have outside - and letting it use the WiFi for data transfer works good.
 
 ## Hardware
 Getting reliable high-res temp data from the PT1000 sensors was not that easy, especially as I had 3 of them.
+
 Ended up with using PT1000 converters which gave me a very precise output digital signal that was easy to hook up to the ESP.
 
-PT1000 sensors with Silicon cable to handle the heat. As my original idea was to use a multiplexer and some high-res A/D converter I used the 2-wire probes, but as I later went with the adapter-boards that supports 4-wire, that would have been a better option - as it gives even more precise values.
+PT1000 sensors with Silicon cable to handle the heat. Normal cables may melt as it can get up to several hundred degrees.
+
+As my original idea was to use a multiplexer and some high-res A/D converter I used the 2-wire probes, but as I later went with the adapter-boards that supports 4-wire, that would have been a better option - as it gives even more precise values.
 
 ### Parts
-D1 Mini - ESP8266 12-F board
-Adafruit MAX31865 (PT1000 interface)
-PT1000 sensors with silicon cables (4-wire prefered)
+* D1 Mini - ESP8266 12-F board
+* Adafruit MAX31865 (PT1000 interface)
+* PT1000 sensors with silicon cables (4-wire prefered)
 
 
 ### Wiring D1Mini
@@ -44,7 +51,7 @@ If you do not receive any data, make sure that the P1 port is enabled on your me
 
 ## Technical documentation
 Specification overview:
-https://esphome.io/
-https://www.amazon.se/AZDelivery-D1-Mini-ESP8266-12F-WLAN-modul/dp/B0754W6Z2F?th=1
+* https://esphome.io/
+* https://www.amazon.se/AZDelivery-D1-Mini-ESP8266-12F-WLAN-modul/dp/B0754W6Z2F?th=1
 
-https://www.adafruit.com/product/3648
+* https://www.adafruit.com/product/3648
