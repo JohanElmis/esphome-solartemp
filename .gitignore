@@ -1,0 +1,5 @@
+secrets.yaml
+.esphome
+electricity_meter
+*.sh
+.vs
