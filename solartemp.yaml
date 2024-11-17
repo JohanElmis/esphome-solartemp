@@ -6,8 +6,6 @@ esphome:
   name: ${device_name}
   platform: ESP8266
   board: d1_mini
-  #includes:
-  #  - solartemp.h
 
 spi:
   miso_pin: D6
@@ -37,7 +35,8 @@ logger:
 #  password: !secret solartemp_password
 
 ota:
-  password: !secret solartemp_password
+  - platform: esphome
+    password: !secret solartemp_password
 
 mqtt:
   broker: 192.150.23.16
@@ -49,7 +48,7 @@ mqtt:
   discovery: true
   discovery_prefix: ${mqtt_prefix} #/homeassistant
   log_topic: ${mqtt_prefix}/logs
-  
+
 web_server:
   port: 80
   ota: false
@@ -112,7 +111,7 @@ sensor:
           topic: "solarheating/temperature"
           payload: |-
             root["PanelMiddle"] = id(sp_temp_mid).state;
-   
+
   - platform: max31865
     name: "Solarpanel Temp Right"
     id: sp_temp_right
