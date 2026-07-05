@@ -4,7 +4,8 @@ substitutions:
 
 esphome:
   name: ${device_name}
-  platform: ESP8266
+
+esp8266:
   board: d1_mini
 
 spi:
@@ -84,33 +85,32 @@ sensor:
     name: "${device_name} WiFi Signal"
     id: solarpanel_wifi
     update_interval: 30s
-    on_value:
-      - mqtt.publish_json:
-          topic: "solarheating/wifi_signal"
-          payload: |-
-            root["wifi_signal"] = id(solarpanel_wifi).state;
   - platform: max31865
     name: "Solarpanel Temp Left"
     id: sp_temp_left
     cs_pin: D2
     reference_resistance: 4300 Ω
     rtd_nominal_resistance: 1000 Ω
-    on_value:
-      - mqtt.publish_json:
-          topic: "solarheating/temperature"
-          payload: |-
-            root["PanelLeft"] = id(sp_temp_left).state;
+    rtd_wires: 2
+    mains_filter: 50Hz
+    update_interval: 5s
+    filters:
+      - median:
+          window_size: 3
+          send_every: 1
   - platform: max31865
     name: "Solarpanel Temp Middle"
     id: sp_temp_mid
     cs_pin: D3
     reference_resistance: 4300 Ω
     rtd_nominal_resistance: 1000 Ω
-    on_value:
-      - mqtt.publish_json:
-          topic: "solarheating/temperature"
-          payload: |-
-            root["PanelMiddle"] = id(sp_temp_mid).state;
+    rtd_wires: 2
+    mains_filter: 50Hz
+    update_interval: 5s
+    filters:
+      - median:
+          window_size: 3
+          send_every: 1
 
   - platform: max31865
     name: "Solarpanel Temp Right"
@@ -118,8 +118,10 @@ sensor:
     cs_pin: D1
     reference_resistance: 4300 Ω
     rtd_nominal_resistance: 1000 Ω
-    on_value:
-      - mqtt.publish_json:
-          topic: "solarheating/temperature"
-          payload: |-
-            root["PanelRight"] = id(sp_temp_right).state;
+    rtd_wires: 2
+    mains_filter: 50Hz
+    update_interval: 5s
+    filters:
+      - median:
+          window_size: 3
+          send_every: 1
