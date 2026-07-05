@@ -98,6 +98,14 @@ sensor:
       - median:
           window_size: 3
           send_every: 1
+      # Only report when the temperature changes by at least 0.5 °C,
+      # but send a heartbeat at least every 5 minutes so the value is
+      # never considered stale. Optimistic mode forwards the >=0.5 °C
+      # changes immediately instead of waiting for the timer.
+      - delta: 0.5
+      - heartbeat:
+          period: 5min
+          optimistic: true
   - platform: max31865
     name: "Solarpanel Temp Middle"
     id: sp_temp_mid
@@ -111,6 +119,14 @@ sensor:
       - median:
           window_size: 3
           send_every: 1
+      # Only report when the temperature changes by at least 0.5 °C,
+      # but send a heartbeat at least every 5 minutes so the value is
+      # never considered stale. Optimistic mode forwards the >=0.5 °C
+      # changes immediately instead of waiting for the timer.
+      - delta: 0.5
+      - heartbeat:
+          period: 5min
+          optimistic: true
 
   - platform: max31865
     name: "Solarpanel Temp Right"
@@ -125,3 +141,11 @@ sensor:
       - median:
           window_size: 3
           send_every: 1
+      # Only report when the temperature changes by at least 0.5 °C,
+      # but send a heartbeat at least every 5 minutes so the value is
+      # never considered stale. Optimistic mode forwards the >=0.5 °C
+      # changes immediately instead of waiting for the timer.
+      - delta: 0.5
+      - heartbeat:
+          period: 5min
+          optimistic: true
