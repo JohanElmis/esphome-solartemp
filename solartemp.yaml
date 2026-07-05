@@ -37,7 +37,6 @@ logger:
 ota:
   - platform: esphome
     password: !secret solartemp_password
-    port: 8266
 
 mqtt:
   broker: 192.150.23.16
