@@ -85,6 +85,14 @@ sensor:
     name: "${device_name} WiFi Signal"
     id: solarpanel_wifi
     update_interval: 30s
+    filters:
+      - median:
+          window_size: 5
+          send_every: 1
+      - delta: 1
+      - heartbeat:
+          period: 5min
+          optimistic: true
   - platform: max31865
     name: "Solarpanel Temp Left"
     id: sp_temp_left
